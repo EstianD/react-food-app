@@ -6,6 +6,8 @@ import { searchFood } from "./services/food";
 function App() {
   const [state, setState] = useState([]);
 
+  //   Handle item click
+
   // state model
   /*
   {
