@@ -4,15 +4,39 @@ import SearchItem from "./SearchItem";
 import SearchLoader from "./SearchLoader";
 import useFoodSearch from "../hooks/useFoodSearch";
 
-const FoodSearch = () => {
+const FoodSearch = ({ requests, setRequests, setFoodImages, foodImages }) => {
   const {
     searchResults,
     loading,
-    handleItemSelect,
     searchValue,
     setSearchValue,
     showSearch,
-  } = useFoodSearch();
+    setShowSearch,
+  } = useFoodSearch(setRequests);
+
+  // Handle item select
+  const handleItemSelect = (item) => {
+    console.log("clicked: ", item);
+
+    let requestsArr = [...requests.ingredients];
+    let imgArr = [...foodImages];
+
+    // Create request object for selected food
+    let selectedObj = {
+      foodId: item.foodId,
+      quantity: item.quantity,
+      measureURI: item.measureURI,
+    };
+
+    requestsArr.push(selectedObj);
+    imgArr.push(item.image);
+    //  Set input value to selected value
+    //  setSearchValue(item.label);
+    setSearchValue("");
+    setShowSearch(false);
+    setRequests({ ingredients: [...requestsArr] });
+    setFoodImages([...imgArr]);
+  };
 
   //   Render search results
   const renderSearchResults = () => {

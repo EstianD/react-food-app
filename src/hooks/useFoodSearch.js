@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 // Define api variables
-const API_ID = process.env.REACT_APP_API_ID;
+const API_ID = process.env.REACT_APP_APP_ID;
 const API_SECRET = process.env.REACT_APP_API_SECRET;
 
-const useFoodSearch = () => {
+const useFoodSearch = (setRequests) => {
   //   const [inputValue, setInputValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,6 +46,8 @@ const useFoodSearch = () => {
 
           // Loop through items and create objects of them
           hints.map((item, i) => {
+            console.log("FOOD: ", item);
+
             if (i < 10) {
               let foodObj = {
                 foodId: item.food.foodId,
@@ -81,20 +83,13 @@ const useFoodSearch = () => {
     };
   }, [searchValue]);
 
-  const handleItemSelect = (item) => {
-    console.log("clicked: ", item);
-    //  Set input value to selected value
-    //  setSearchValue(item.label);
-    setShowSearch(false);
-  };
-
   return {
     searchResults,
     loading,
-    handleItemSelect,
     searchValue,
     setSearchValue,
     showSearch,
+    setShowSearch,
   };
 };
 
