@@ -111,14 +111,29 @@
 }
 /* vitamin section */
 .vitamin-summary-container {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   width: 100%;
+  padding: 20px;
+  /* width: 50%; */
+  flex-grow: 1;
 }
 
 .vitamin-chart-container {
   flex-grow: 1;
   width: 100%;
 }
+
+.vitamin-table {
+  text-align: left;
+  width: 100%;
+  /* padding: 5px; */
+  border-spacing: 5px;
+}
+
+.vitamin-table-header {
+  border-bottom: 1px solid black;
+}
+
 /* mineral section */
 .mineral-summary-container {
   flex-grow: 1;

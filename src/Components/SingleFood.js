@@ -3,6 +3,7 @@ import React from "react";
 // import charts
 import CalorieChart from "./charts/CalorieChart";
 import MacroChart from "./charts/MacroChart";
+import VitaminChart from "./charts/VitaminChart";
 // Import nutrient tables
 import NutritionFacts from "./NutritionFacts";
 import CalorieTable from "./tables/CalorieTable";
@@ -86,18 +87,18 @@ const SingleFood = ({ foods, foodImages }) => {
 
   // Vitamins
   const vitamins = [
+    foodArray.FOLDFE ? foodArray.FOLDFE : {},
+    foodArray.FOLAC ? foodArray.FOLAC : {},
+    foodArray.NIA ? foodArray.NIA : {},
+    foodArray.RIBF ? foodArray.RIBF : {},
+    foodArray.THIA ? foodArray.THIA : {},
     foodArray.VITA_RAE ? foodArray.VITA_RAE : {},
     foodArray.VITB6A ? foodArray.VITB6A : {},
     foodArray.VITB12 ? foodArray.VITB12 : {},
     foodArray.VITC ? foodArray.VITC : {},
     foodArray.VITD ? foodArray.VITD : {},
-    foodArray.VITK ? foodArray.VITK : {},
-    foodArray.FOLAC ? foodArray.FOLAC : {},
-    foodArray.FOLDFE ? foodArray.FOLDFE : {},
-    foodArray.RIBF ? foodArray.RIBF : {},
-    foodArray.NIA ? foodArray.NIA : {},
-    foodArray.THIA ? foodArray.THIA : {},
     foodArray.TOCPHA ? foodArray.TOCPHA : {},
+    foodArray.VITK ? foodArray.VITK : {},
   ];
   console.log("VITAMINS: ", vitamins);
 
@@ -186,7 +187,9 @@ const SingleFood = ({ foods, foodImages }) => {
         <div className="vitamin-summary-container">
           <VitaminTable vitamins={vitamins} servingDetails={servingDetails} />
         </div>
-        <div className="vitamin-chart-container">vitamin chart</div>
+        <div className="vitamin-chart-container">
+          <VitaminChart vitamins={vitamins} />
+        </div>
       </div>
 
       {/* Minerals section */}
