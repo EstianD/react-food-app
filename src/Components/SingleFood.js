@@ -3,11 +3,12 @@ import React from "react";
 // import charts
 import CalorieChart from "./charts/CalorieChart";
 import MacroChart from "./charts/MacroChart";
-import VitaminChart from "./charts/VitaminChart";
+import DailyChart from "./charts/DailyChart";
+import BreakdownChart from "./charts/BreakdownChart";
 // Import nutrient tables
 import NutritionFacts from "./NutritionFacts";
 import CalorieTable from "./tables/CalorieTable";
-import VitaminTable from "./tables/VitaminTable";
+import DailyTable from "./tables/DailyTable";
 
 const SingleFood = ({ foods, foodImages }) => {
   console.log("SINGLE FOODS: ", foods);
@@ -32,40 +33,6 @@ const SingleFood = ({ foods, foodImages }) => {
   let keysArray = Object.keys(foods[0].totalNutrients);
   let foodArray = [];
   console.log("KEYS: ", keysArray);
-
-  //   const {
-  //     CA = {},
-  //     CHOCDF = {},
-  //     CHOLE = {},
-  //     ENERC_KCAL = {},
-  //     FAMS = {},
-  //     FAPU = {},
-  //     FASAT = {},
-  //     FAT = {},
-  //     FE = {},
-  //     FIBTG = {},
-  //     FOLAC = {},
-  //     FOLDFE = {},
-  //     FOLDFD = {},
-  //     K = {},
-  //     MG = {},
-  //     NA = {},
-  //     NIA = {},
-  //     P = {},
-  //     PROCNT = {},
-  //     RIBF = {},
-  //     SUGAR = {},
-  //     THIA = {},
-  //     TOCPHA = {},
-  //     VITA_RAE = {},
-  //     VITB6A = {},
-  //     VITB12 = {},
-  //     VITC = {},
-  //     VITD = {},
-  //     VITK = {},
-  //     WATER = {},
-  //     ZN = {},
-  //   } = foods[0].totalNutrients;
 
   // Add calories to foodArray
   foodArray["CAL"] = foods[0].calories;
@@ -118,9 +85,9 @@ const SingleFood = ({ foods, foodImages }) => {
   //   const fats = [FAT, FAMS, FAPU, FASAT];
   const fats = [
     foodArray.FAT ? foodArray.FAT : {},
+    foodArray.FASAT ? foodArray.FASAT : {},
     foodArray.FAMS ? foodArray.FAMS : {},
     foodArray.FAPU ? foodArray.FAPU : {},
-    foodArray.FASAT ? foodArray.FASAT : {},
   ];
   //   Carbs
   //   const carbs = [CHOCDF, FIBTG, SUGAR];
@@ -141,6 +108,8 @@ const SingleFood = ({ foods, foodImages }) => {
     foodArray.WATER ? foodArray.WATER : {},
     foodArray.FOLDFD ? foodArray.FOLDFD : {},
   ];
+
+  console.log("FATS: ", fats);
 
   return (
     <div className="food-container">
@@ -163,57 +132,73 @@ const SingleFood = ({ foods, foodImages }) => {
             {/* <img className="food-img" src={foodImages[0]} alt={foodImages[0]} /> */}
           </div>
           <div className="macro-chart-container">
-            <MacroChart
+            <BreakdownChart
               proteins={proteins}
               fats={fats}
               carbs={carbs}
               other={other}
               servingDetails={servingDetails}
+              title={"Macro"}
             />
           </div>
+
           <div className="calorie-chart-container">
-            <CalorieChart
+            <BreakdownChart
               carbs={carbs}
               proteins={proteins}
               fats={fats}
               servingDetails={servingDetails}
+              title={"Calories"}
             />
           </div>
         </div>
       </div>
 
       {/* Vitamins section */}
-      <div className="vitamin-container">
-        <div className="vitamin-summary-container">
-          <VitaminTable vitamins={vitamins} servingDetails={servingDetails} />
+      <div className="daily-container">
+        <div className="daily-summary-container">
+          <DailyTable
+            nutrients={vitamins}
+            servingDetails={servingDetails}
+            title={"Vitamins"}
+          />
         </div>
-        <div className="vitamin-chart-container">
-          <VitaminChart vitamins={vitamins} />
+        <div className="daily-chart-container">
+          <DailyChart nutrients={vitamins} title={"Vitamins"} />
         </div>
       </div>
 
       {/* Minerals section */}
-      <div className="mineral-container">
-        <div className="mineral-summary-container">mineral summary</div>
-        <div className="mineral-chart-container">mineral chart</div>
+      <div className="daily-container">
+        <div className="daily-summary-container">
+          <DailyTable
+            nutrients={minerals}
+            servingDetails={servingDetails}
+            title={"Minerals"}
+          />
+        </div>
+        <div className="daily-chart-container">
+          <DailyChart nutrients={minerals} title={"Minerals"} />
+        </div>
       </div>
 
       {/* Fats section */}
-      <div className="fat-container">
-        <div className="fat-summary-container">fat summary</div>
-        <div className="fat-chart-container">fat chart</div>
-      </div>
-
-      {/* <div className="nutrition-container">
-        <div className="nutrition-summary">
-          <CalorieChart
-            carbs={carbs}
-            proteins={proteins}
-            fats={fats}
+      <div className="daily-container">
+        <div className="daily-summary-container">
+          <DailyTable
+            nutrients={fats}
             servingDetails={servingDetails}
+            title={"Fats"}
           />
         </div>
-      </div> */}
+        <div className="daily-chart-container">
+          <BreakdownChart
+            fats={fats}
+            servingDetails={servingDetails}
+            title={"Fats"}
+          />
+        </div>
+      </div>
     </div>
   );
 };

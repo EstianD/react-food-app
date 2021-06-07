@@ -4,7 +4,7 @@ import SearchItem from "./SearchItem";
 import SearchLoader from "./SearchLoader";
 import useFoodSearch from "../hooks/useFoodSearch";
 
-const FoodSearch = ({ requests, setRequests, setFoodImages, foodImages }) => {
+const FoodSearch = ({ requests, setRequests, view, setView }) => {
   const {
     searchResults,
     loading,
@@ -19,7 +19,6 @@ const FoodSearch = ({ requests, setRequests, setFoodImages, foodImages }) => {
     console.log("clicked: ", item);
 
     let requestsArr = [...requests.ingredients];
-    let imgArr = [...foodImages];
 
     // Create request object for selected food
     let selectedObj = {
@@ -28,14 +27,27 @@ const FoodSearch = ({ requests, setRequests, setFoodImages, foodImages }) => {
       measureURI: item.measureURI,
     };
 
-    requestsArr.push(selectedObj);
-    imgArr.push(item.image);
+    // Check for page view (single or compare)
+    // Check for single view
+    if (view === "single") {
+      // Single clears the request array and will only have 1 request at a time
+      console.log("SINGLE");
+
+      requestsArr = [];
+      requestsArr.push(selectedObj);
+    }
+
+    // Check for compare view
+    if (view === "compare") {
+      // Compare will concat the clicked request until a max length of 3
+      requestsArr.push(selectedObj);
+    }
+
     //  Set input value to selected value
     //  setSearchValue(item.label);
     setSearchValue("");
     setShowSearch(false);
     setRequests({ ingredients: [...requestsArr] });
-    setFoodImages([...imgArr]);
   };
 
   //   Render search results

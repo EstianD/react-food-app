@@ -8,15 +8,8 @@ import CompareFoods from "./Components/CompareFoods";
 
 function App() {
   // Custom hook to manage dashboard
-  const {
-    foods,
-    setFoods,
-    requests,
-    setRequests,
-    items,
-    foodImages,
-    setFoodImages,
-  } = useDashboard();
+  const { foods, setFoods, requests, setRequests, view, setView } =
+    useDashboard();
 
   // useEffect(() => {
   //   console.log("APP RUNNING!");
@@ -28,19 +21,16 @@ function App() {
   console.log("APP RUNNING!");
   console.log("REQUESTS: ", requests);
   console.log("FOODS: ", foods);
-  console.log("ITEMS: ", items);
 
   return (
     <div className="app-container">
       <FoodSearch
         requests={requests}
         setRequests={setRequests}
-        foodImages={foodImages}
-        setFoodImages={setFoodImages}
+        view={view}
+        setView={setView}
       />
-      {foods.length === 1 && (
-        <SingleFood foods={foods} foodImages={foodImages} />
-      )}
+      {foods.length === 1 && <SingleFood foods={foods} />}
       {foods.length > 1 && <CompareFoods />}
     </div>
   );

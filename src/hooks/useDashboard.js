@@ -8,9 +8,8 @@ const getNutrientsUrl = `https://api.edamam.com/api/food-database/v2/nutrients?a
 
 const useDashboard = () => {
   const [foods, setFoods] = useState([]);
-  const [items, setItems] = useState(0);
   const [requests, setRequests] = useState({ ingredients: [] });
-  const [foodImages, setFoodImages] = useState([]);
+  const [view, setView] = useState("single");
 
   useEffect(() => {
     console.log("RUNNING!!");
@@ -22,10 +21,18 @@ const useDashboard = () => {
       try {
         const res = await axios.post(getNutrientsUrl, requestObj);
         console.log("RESPONSE: ", res);
-        let foodDetailArr = [...foods];
-        foodDetailArr.push(res.data);
+        let foodDetailArr = [];
+        // Check for view
+        if (view === "single") {
+          foodDetailArr.push(res.data);
+        }
+
+        if (view === "compare") {
+          foodDetailArr = [...foods];
+          foodDetailArr.push(res.data);
+        }
+        // Set foods result to state
         setFoods([...foodDetailArr]);
-        setItems((prevItems) => prevItems + 1);
       } catch (err) {
         console.log("ERROR: ", err);
       }
@@ -51,9 +58,8 @@ const useDashboard = () => {
     setFoods,
     requests,
     setRequests,
-    items,
-    foodImages,
-    setFoodImages,
+    view,
+    setView,
   };
 };
 

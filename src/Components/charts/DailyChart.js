@@ -1,27 +1,48 @@
 import React from "react";
 import { Polar } from "react-chartjs-2";
 
-const VitaminChart = ({ vitamins }) => {
-  //   const [vitamins, setVitamins] = useState(vits);
+const DailyChart = ({ nutrients, title }) => {
+  //   const [dailys, setdailys] = useState(vits);
 
-  console.log("VITAMIN CHART: ", vitamins);
+  const colors = [
+    "#F51720",
+    "#fcba03",
+    "#62fc03",
+    "#03fceb",
+    "#b0ab13",
+    "#008026",
+    "#e35d7f",
+    "#c2ba1d",
+    "#fff12b",
+    "#008071",
+    "#285666",
+    "#9f66c4",
+    "#5c0a0a",
+    "#498223",
+  ];
 
-  console.log("VITAMINS: ", vitamins);
+  if (title === "Minerals") {
+    colors.reverse();
+  }
+
+  console.log("daily CHART: ", nutrients);
+
+  console.log("dailyS: ", nutrients);
 
   // FIlter empty objects
-  const vitaminArray = vitamins.filter((vitamin) => {
-    return Object.keys(vitamin).length > 0;
+  const foodsArray = nutrients.filter((food) => {
+    return Object.keys(food).length > 0;
   });
 
-  console.log("ARRAY: ", vitaminArray);
+  console.log("ARRAY: ", foodsArray);
 
   // Define chart and data arrays
   let chartData = [];
   let chartLabels = [];
 
-  vitaminArray.forEach((vitamin) => {
-    chartData.push(Math.round(vitamin.dv));
-    chartLabels.push(vitamin.label);
+  foodsArray.forEach((food) => {
+    chartData.push(Math.round(food.dv));
+    chartLabels.push(food.label);
   });
 
   console.log("CHART DATA: ", chartData);
@@ -33,23 +54,8 @@ const VitaminChart = ({ vitamins }) => {
       {
         // label: "grams",
         data: chartData,
-        backgroundColor: [
-          "#F51720",
-          "#fcba03",
-          "#62fc03",
-          "#03fceb",
-          "#b0ab13",
-          "#008026",
-          "#e35d7f",
-          "#c2ba1d",
-          "#fff12b",
-          "#008071",
-          "#285666",
-          "#9f66c4",
-          "#5c0a0a",
-          "#498223",
-        ],
-        borderColor: ["#ffffff", "#ffffff", "#ffffff"],
+        backgroundColor: colors,
+        borderColor: ["#ffffff"],
         borderWidth: 1,
       },
     ],
@@ -80,13 +86,13 @@ const VitaminChart = ({ vitamins }) => {
   };
 
   return (
-    <div className="vitamin-radar-chart">
-      <div className="vitamin-chart-header">
-        <span className="vitamin-chart-title">Vitamin daily needs</span>
+    <div className="daily-radar-chart">
+      <div className="daily-chart-header">
+        <span className="daily-chart-title">{title} daily needs</span>
       </div>
       <Polar data={data} options={options} width={350} height={350} />
     </div>
   );
 };
 
-export default VitaminChart;
+export default DailyChart;
