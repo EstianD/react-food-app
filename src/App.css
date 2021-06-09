@@ -213,6 +213,15 @@
   height: auto;
 }
 
+/* Compare page section */
+
+.compare-description-container {
+  display: flex;
+}
+
+.food-heading-container {
+}
+
 @-webkit-keyframes spin {
   0% {
     -webkit-transform: rotate(0deg);

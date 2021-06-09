@@ -11,41 +11,83 @@ const useDashboard = () => {
   const [requests, setRequests] = useState({ ingredients: [] });
   const [view, setView] = useState("single");
 
+  // Compare button click handler
+  const handleToggleCompareButtonClick = () => {
+    // console.log("CHANGE VIEW");
+    // If view === single, change to compare
+    if (view === "single") {
+      setView("compare");
+    }
+    // If view === compare, change to single
+    if (view === "compare") {
+      setView("single");
+    }
+  };
+
   useEffect(() => {
-    console.log("RUNNING!!");
+    // console.log("RUNNING!!");
     //  console.log(state);
-    let requestArr = [];
+    // let requestArr = [];
 
     // Define async function for post request
     async function sendRequest(requestObj) {
+      // console.log("REQUEST OBJECT: ", requestObj);
+      let res;
       try {
-        const res = await axios.post(getNutrientsUrl, requestObj);
+        res = await axios.post(getNutrientsUrl, requestObj);
         console.log("RESPONSE: ", res);
+        // debugger;
         let foodDetailArr = [];
         // Check for view
         if (view === "single") {
+          // console.log("SINGLE");
+
           foodDetailArr.push(res.data);
         }
 
         if (view === "compare") {
+          // console.log("COMPARE");
+
+          // console.log("FOODS: ", foods);
+
           foodDetailArr = [...foods];
+          const exists = foodDetailArr.find(
+            (obj) =>
+              obj.ingredients[0].parsed[0].food !==
+              res.data.ingredients[0].parsed[0].food
+          );
+          // console.log("OBJECT: ", Object.keys(exists).length);
+          console.log("EXISTS: ", exists);
+
+          // if (Object.keys(exists).length === 0) {
+          //   // console.log("NOT");
+
+          //   foodDetailArr.push(res.data);
+          // }
           foodDetailArr.push(res.data);
         }
+        // console.log("FOOD DETAILS ARRAY: ", foodDetailArr);
+
         // Set foods result to state
+        // console.log("FOOD ARRAY: ", foodDetailArr);
+
         setFoods([...foodDetailArr]);
       } catch (err) {
         console.log("ERROR: ", err);
       }
     }
 
+    console.log("ALL REQUESTS: ", requests);
+
     // Make requests for each food item
     requests.ingredients.map((item) => {
-      // console.log("REQUEST: ", item);
-      requestArr.push(item);
+      // console.log("REQUEST HERE: ", item);
+      // let requestArr = [];
+      // requestArr.push(item);
       let requestObj = {
-        ingredients: [...requestArr],
+        ingredients: [item],
       };
-      console.log("REQUESTS: ", requestObj);
+      // console.log("REQUEST.....: ", requestObj);
 
       // Make post request to API
       sendRequest(requestObj);
@@ -60,6 +102,7 @@ const useDashboard = () => {
     setRequests,
     view,
     setView,
+    handleToggleCompareButtonClick,
   };
 };
 

@@ -12,7 +12,6 @@ import DailyTable from "./tables/DailyTable";
 
 const SingleFood = ({ foods, foodImages }) => {
   console.log("SINGLE FOODS: ", foods);
-  console.log("IMAGE: ", foodImages);
 
   let foodName = foods[0].ingredients[0].parsed[0].food;
   let capitalName = foodName.charAt(0).toUpperCase() + foodName.slice(1);
@@ -32,7 +31,7 @@ const SingleFood = ({ foods, foodImages }) => {
 
   let keysArray = Object.keys(foods[0].totalNutrients);
   let foodArray = [];
-  console.log("KEYS: ", keysArray);
+  // console.log("KEYS: ", keysArray);
 
   // Add calories to foodArray
   foodArray["CAL"] = foods[0].calories;

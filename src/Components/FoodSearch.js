@@ -3,8 +3,16 @@ import React, { useState } from "react";
 import SearchItem from "./SearchItem";
 import SearchLoader from "./SearchLoader";
 import useFoodSearch from "../hooks/useFoodSearch";
+import ToggleCompareButton from "./ToggleCompareButton";
 
-const FoodSearch = ({ requests, setRequests, view, setView }) => {
+const FoodSearch = ({
+  requests,
+  setRequests,
+  view,
+  setView,
+  handleToggleCompareButtonClick,
+}) => {
+  // Search food custom hook
   const {
     searchResults,
     loading,
@@ -66,7 +74,12 @@ const FoodSearch = ({ requests, setRequests, view, setView }) => {
         value={searchValue}
         placeholder="Ingredient..."
       />
-
+      {requests.ingredients.length > 0 && (
+        <ToggleCompareButton
+          handleToggleCompareButtonClick={handleToggleCompareButtonClick}
+          view={view}
+        />
+      )}
       {searchValue.length > 0 && showSearch && (
         <div className="search-results-container">
           {searchResults.length > 0 && <div>{renderSearchResults()}</div>}

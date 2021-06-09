@@ -39,14 +39,14 @@ const useFoodSearch = (setRequests) => {
         const { data } = await axios.get(url, { cancelToken: source.token });
         //   Check if data exists
         if (data) {
-          console.log("DATA: ", data);
+          // console.log("DATA: ", data);
           //  Destructure hints(recommendations) from data
           const { hints } = data;
           let foodArr = [];
 
           // Loop through items and create objects of them
           hints.map((item, i) => {
-            console.log("FOOD: ", item);
+            // console.log("FOOD: ", item);
 
             if (i < 10) {
               let foodObj = {
@@ -61,7 +61,7 @@ const useFoodSearch = (setRequests) => {
             }
           });
 
-          console.log("FOOD ARRAY: ", foodArr);
+          // console.log("FOOD ARRAY: ", foodArr);
           // Set search state to food array
           setSearchResults([...foodArr]);
           setLoading(false);

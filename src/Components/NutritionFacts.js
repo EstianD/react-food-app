@@ -1,56 +1,10 @@
 import React from "react";
 
 const NutritionFacts = ({ foodArray, servingDetails }) => {
-  //   const servingSize = foods[0].ingredients[0].parsed[0].quantity;
-  //   const servingMeasure = foods[0].ingredients[0].parsed[0].measure[0];
-
   console.log("Nutritional: ", foodArray);
   console.log("SERVING: ", servingDetails);
 
   const { servingMeasure, servingSize } = servingDetails;
-
-  // Destructure nutrients
-  //   const { totalNutrients } = foods[0];
-  //   const { totalDaily } = foods[0];
-  //   console.log("NUTS: ", totalNutrients);
-
-  //   const {
-  //     CA = 0,
-  //     CHOCDF = 0,
-  //     CHOLE = 0,
-  //     ENERC_KCAL = 0,
-  //     FAMS = 0,
-  //     FAPU = 0,
-  //     FASAT = 0,
-  //     FAT = 0,
-  //     FE = 0,
-  //     FIBTG = 0,
-  //     FOLAC = 0,
-  //     FOLDFE = 0,
-  //     FOLDFD = 0,
-  //     K = 0,
-  //     MG = 0,
-  //     NA = 0,
-  //     NIA = 0,
-  //     P = 0,
-  //     PROCNT = 0,
-  //     RIBF = 0,
-  //     SUGAR = 0,
-  //     THIA = 0,
-  //     TOCPHA = 0,
-  //     VITA_RAE = 0,
-  //     VITB6A = 0,
-  //     VITB12 = 0,
-  //     VITC = 0,
-  //     VITD = 0,
-  //     VITK = 0,
-  //     WATER = 0,
-  //     ZN = 0,
-  //   } = foods[0].totalNutrients;
-
-  //   console.log("CA: ", CA);
-
-  //   console.log("key", CHOLE);
 
   return (
     <div>
