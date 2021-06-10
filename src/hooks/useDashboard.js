@@ -28,43 +28,30 @@ const useDashboard = () => {
     // console.log("RUNNING!!");
     //  console.log(state);
     // let requestArr = [];
+    let foodDetailArr = [];
+    console.log("USEEFFECT");
 
     // Define async function for post request
     async function sendRequest(requestObj) {
       // console.log("REQUEST OBJECT: ", requestObj);
-      let res;
+
       try {
-        res = await axios.post(getNutrientsUrl, requestObj);
+        const res = await axios.post(getNutrientsUrl, requestObj);
         console.log("RESPONSE: ", res);
         // debugger;
-        let foodDetailArr = [];
+
         // Check for view
         if (view === "single") {
-          // console.log("SINGLE");
+          console.log("INSIDE SINGLE");
+          foodDetailArr = [];
 
           foodDetailArr.push(res.data);
         }
 
         if (view === "compare") {
-          // console.log("COMPARE");
-
-          // console.log("FOODS: ", foods);
-
-          foodDetailArr = [...foods];
-          const exists = foodDetailArr.find(
-            (obj) =>
-              obj.ingredients[0].parsed[0].food !==
-              res.data.ingredients[0].parsed[0].food
-          );
-          // console.log("OBJECT: ", Object.keys(exists).length);
-          console.log("EXISTS: ", exists);
-
-          // if (Object.keys(exists).length === 0) {
-          //   // console.log("NOT");
-
-          //   foodDetailArr.push(res.data);
-          // }
+          console.log("INSIDE COMPARE");
           foodDetailArr.push(res.data);
+          console.log("DIE ARRAY: ", foodDetailArr);
         }
         // console.log("FOOD DETAILS ARRAY: ", foodDetailArr);
 
@@ -87,7 +74,8 @@ const useDashboard = () => {
       let requestObj = {
         ingredients: [item],
       };
-      // console.log("REQUEST.....: ", requestObj);
+
+      console.log("REQUEST.....: ", requestObj);
 
       // Make post request to API
       sendRequest(requestObj);
